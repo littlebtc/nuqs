@@ -1,43 +1,43 @@
-import { JSX, lazy } from 'react'
-
-// prettier-ignore
-const routes: Record<string, React.LazyExoticComponent<() => JSX.Element>> = {
-  // Shared E2E tests
-  '/basic-io/useQueryState':                lazy(() => import('./routes/basic-io.useQueryState')),
-  '/basic-io/useQueryStates':               lazy(() => import('./routes/basic-io.useQueryStates')),
-  '/conditional-rendering/useQueryState':   lazy(() => import('./routes/conditional-rendering.useQueryState')),
-  '/conditional-rendering/useQueryStates':  lazy(() => import('./routes/conditional-rendering.useQueryStates')),
-  '/form/useQueryState':                    lazy(() => import('./routes/form.useQueryState')),
-  '/form/useQueryStates':                   lazy(() => import('./routes/form.useQueryStates')),
-  '/hash-preservation':                     lazy(() => import('./routes/hash-preservation')),
-  '/history-sync':                          lazy(() => import('./routes/history-sync')),
-  '/json':                                  lazy(() => import('./routes/json')),
-  '/life-and-death':                        lazy(() => import('./routes/life-and-death')),
-  '/linking/useQueryState':                 lazy(() => import('./routes/linking.useQueryState')),
-  '/linking/useQueryState/other':           lazy(() => import('./routes/linking.useQueryState.other')),
-  '/linking/useQueryStates':                lazy(() => import('./routes/linking.useQueryStates')),
-  '/linking/useQueryStates/other':          lazy(() => import('./routes/linking.useQueryStates.other')),
-  '/native-array':                          lazy(() => import('./routes/native-array')),
-  '/pretty-urls':                           lazy(() => import('./routes/pretty-urls')),
-  '/referential-stability/useQueryState':   lazy(() => import('./routes/referential-stability.useQueryState')),
-  '/referential-stability/useQueryStates':  lazy(() => import('./routes/referential-stability.useQueryStates')),
-  '/routing/useQueryState':                 lazy(() => import('./routes/routing.useQueryState')),
-  '/routing/useQueryState/other':           lazy(() => import('./routes/routing.useQueryState.other')),
-  '/routing/useQueryStates':                lazy(() => import('./routes/routing.useQueryStates')),
-  '/routing/useQueryStates/other':          lazy(() => import('./routes/routing.useQueryStates.other')),
-  '/scroll':                                lazy(() => import('./routes/scroll')),
-
-  // Local tests
-  '/key-isolation/useQueryState':           lazy(() => import('./routes/key-isolation.useQueryState')),
-  '/key-isolation/useQueryStates':          lazy(() => import('./routes/key-isolation.useQueryStates')),
-  '/shallow/useQueryState':                 lazy(() => import('./routes/shallow.useQueryState')),
-  '/shallow/useQueryStates':                lazy(() => import('./routes/shallow.useQueryStates')),
-}
+import { lazy, Suspense } from 'react'
+import { Route, Switch } from 'wouter'
 
 export function AppRouter() {
-  const Route = routes[location.pathname]
-  if (!Route) {
-    return <>404 not found</>
-  }
-  return <Route />
+  return (
+    <Suspense>
+      <Switch>
+        {/* Shared E2E tests */}
+        <Route path="/basic-io/useQueryState"                component={lazy(() => import('./routes/basic-io.useQueryState'))} />
+        <Route path="/basic-io/useQueryStates"               component={lazy(() => import('./routes/basic-io.useQueryStates'))} />
+        <Route path="/conditional-rendering/useQueryState"   component={lazy(() => import('./routes/conditional-rendering.useQueryState'))} />
+        <Route path="/conditional-rendering/useQueryStates"  component={lazy(() => import('./routes/conditional-rendering.useQueryStates'))} />
+        <Route path="/form/useQueryState"                    component={lazy(() => import('./routes/form.useQueryState'))} />
+        <Route path="/form/useQueryStates"                   component={lazy(() => import('./routes/form.useQueryStates'))} />
+        <Route path="/hash-preservation"                     component={lazy(() => import('./routes/hash-preservation'))} />
+        <Route path="/history-sync"                          component={lazy(() => import('./routes/history-sync'))} />
+        <Route path="/json"                                  component={lazy(() => import('./routes/json'))} />
+        <Route path="/life-and-death"                        component={lazy(() => import('./routes/life-and-death'))} />
+        <Route path="/linking/useQueryState"                 component={lazy(() => import('./routes/linking.useQueryState'))} />
+        <Route path="/linking/useQueryState/other"           component={lazy(() => import('./routes/linking.useQueryState.other'))} />
+        <Route path="/linking/useQueryStates"                component={lazy(() => import('./routes/linking.useQueryStates'))} />
+        <Route path="/linking/useQueryStates/other"          component={lazy(() => import('./routes/linking.useQueryStates.other'))} />
+        <Route path="/native-array"                          component={lazy(() => import('./routes/native-array'))} />
+        <Route path="/pretty-urls"                           component={lazy(() => import('./routes/pretty-urls'))} />
+        <Route path="/referential-stability/useQueryState"   component={lazy(() => import('./routes/referential-stability.useQueryState'))} />
+        <Route path="/referential-stability/useQueryStates"  component={lazy(() => import('./routes/referential-stability.useQueryStates'))} />
+        <Route path="/routing/useQueryState"                 component={lazy(() => import('./routes/routing.useQueryState'))} />
+        <Route path="/routing/useQueryState/other"           component={lazy(() => import('./routes/routing.useQueryState.other'))} />
+        <Route path="/routing/useQueryStates"                component={lazy(() => import('./routes/routing.useQueryStates'))} />
+        <Route path="/routing/useQueryStates/other"          component={lazy(() => import('./routes/routing.useQueryStates.other'))} />
+        <Route path="/scroll"                                component={lazy(() => import('./routes/scroll'))} />
+
+        {/* Local tests */}
+        <Route path="/key-isolation/useQueryState"           component={lazy(() => import('./routes/key-isolation.useQueryState'))} />
+        <Route path="/key-isolation/useQueryStates"          component={lazy(() => import('./routes/key-isolation.useQueryStates'))} />
+        <Route path="/shallow/useQueryState"                 component={lazy(() => import('./routes/shallow.useQueryState'))} />
+        <Route path="/shallow/useQueryStates"                component={lazy(() => import('./routes/shallow.useQueryStates'))} />
+
+        <Route>404 not found</Route>
+      </Switch>
+    </Suspense>
+  )
 }
