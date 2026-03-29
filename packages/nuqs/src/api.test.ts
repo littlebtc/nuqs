@@ -73,6 +73,10 @@ const exports = `
     "NuqsTestingAdapter": "function",
     "withNuqsTestingAdapter": "function",
   },
+  "./adapters/wouter": {
+    "NuqsAdapter": "function",
+    "enableHistorySync": "function",
+  },
   "./server": {
     "createLoader": "function",
     "createMultiParser": "function",

@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useSearch } from 'wouter'
 import { debug } from '../lib/debug'
 import { createEmitter } from '../lib/emitter'
 import { renderQueryString } from '../lib/url-encoding'
@@ -13,6 +12,10 @@ import {
 } from './lib/patch-history'
 
 const emitter = createEmitter<SearchParamsSyncEmitterEvents>()
+
+// Patch history to sync wouter Link navigations and other external URL changes
+// via the emitter, enabling key isolation (only components watching changed keys re-render).
+patchHistory(emitter, 'wouter')
 
 function updateUrl(search: URLSearchParams, options: AdapterOptions) {
   const url = new URL(location.href)
@@ -28,14 +31,9 @@ function updateUrl(search: URLSearchParams, options: AdapterOptions) {
 }
 
 function useNuqsWouterAdapter(watchKeys: string[]): AdapterInterface {
-  const search = useSearch()
   const [searchParams, setSearchParams] = useState(() =>
-    filterSearchParams(new URLSearchParams(search), watchKeys, false)
+    filterSearchParams(new URLSearchParams(location.search), watchKeys, false)
   )
-  useEffect(() => {
-    // Sync when wouter triggers navigation (e.g. <Link> components)
-    setSearchParams(applyChange(new URLSearchParams(search), watchKeys, false))
-  }, [search])
   useEffect(() => {
     const onPopState = () => {
       setSearchParams(
