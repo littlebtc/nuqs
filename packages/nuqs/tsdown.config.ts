@@ -13,7 +13,8 @@ const commonConfig = {
     '@remix-run/react',
     'react-router-dom',
     'react-router',
-    '@tanstack/react-router'
+    '@tanstack/react-router',
+    'wouter'
   ],
   outExtensions() {
     return {
@@ -38,7 +39,8 @@ const entrypoints = {
     'adapters/react-router/v7': 'src/adapters/react-router/v7.ts',
     'adapters/tanstack-router': 'src/adapters/tanstack-router.ts',
     'adapters/custom': 'src/adapters/custom.ts',
-    'adapters/testing': 'src/adapters/testing.ts'
+    'adapters/testing': 'src/adapters/testing.ts',
+    'adapters/wouter': 'src/adapters/wouter.ts'
   },
   server: {
     server: 'src/index.server.ts',
