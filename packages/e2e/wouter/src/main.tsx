@@ -1,4 +1,4 @@
-import { NuqsAdapter, enableHistorySync } from 'nuqs/adapters/wouter'
+import { NuqsAdapter, enableHistorySync } from 'nuqs/adapters/react'
 import { createRoot } from 'react-dom/client'
 import { Router } from 'wouter'
 import { RootLayout } from './layout'
